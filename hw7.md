@@ -43,18 +43,15 @@ $$
 
 
 
-
-
 ### 7.4
 
 $$
 \begin{align}
-x^TKx&=x^T(x\cdot x)^px\\
-&=x^T(\Arrowvert x\Arrowvert)^{2p}x\\
-&=\Arrowvert x\Arrowvert^{2p} x^Tx\\
-&=\Arrowvert x\Arrowvert ^{2p+2}\\
-&\gt 0, \qquad x\neq0\\
-即K是&正定核函数\quad\#
+\int K(x,z)g(x)g(z)dxdz&=\int \phi(x)\phi(z)g(x)g(z)dxdz\\
+&=\int_x {\int_z {\phi(z)dz}\phi(x)dx}\\
+&=(\int_{x} \phi(x)dx)^2\\
+&\geq 0\\
+即K是正定核函数\qquad \#
 \end{align}
 $$
 
