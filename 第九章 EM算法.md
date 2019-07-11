@@ -1,6 +1,6 @@
 # 第九章 EM算法
 
-##### 1、为什么说EM算法“含有<u>隐变量</u>的概率模型参数的<u>极大似然估计</u>法”？ P175
+#### 1、为什么说EM算法“含有<u>隐变量</u>的概率模型参数的<u>极大似然估计</u>法”？ P175
 
 解答：
 
@@ -12,9 +12,9 @@
 
 记第i个高斯分布的参数为$\theta_i=(\mu_k,\sigma^2_k)$，高斯的分布的均值和方差。那么EM算法希望找到一个整体参数$\theta(\pi_1,\pi_2,...,\pi_k;\theta_1,\theta_2...\theta_k)$使得产生当前数据点集的概率最大，也就是似然函数$P(Y|\theta)$最大，<u>极大似然</u>
 
+  
 
-
-##### 2、请解释EM算法的似然函数？ P179
+#### 2、请解释EM算法的似然函数？ P179
 
 解答：
 
@@ -45,16 +45,16 @@ $$
 《统计机器学习》P179页公式
 $$
 \begin{align}
-L(\theta)&=\log(P(Y|\theta)) \quad &\text{#对似然函数取对数方便计算loss}\\
-&=\log\sum_Z P(Y,Z|\theta) &\text{#边缘分布公式，对Z求和消去Z}\\
-&=\log \left( \sum_ZP(Y|Z,\theta)P(Z|\theta) \right)&\text{#P(Y,Z)=P(Y|Z)P(Z)}\\
+	L(\theta)&=\log(P(Y|\theta)) \quad &\text{#对似然函数取对数方便计算loss}\\
+	&=\log\sum_Z P(Y,Z|\theta) &\text{#边缘分布公式，对Z求和消去Z}\\
+	&=\log \left( \sum_ZP(Y|Z,\theta)P(Z|\theta) \right)&\text{#P(Y,Z)=P(Y|Z)P(Z)}\\
 \end{align}
 $$
-对应到GMM算法中，$P(Z|\theta)$表示某一个模型被选中的概率，对应$\pi_1,\pi_2,\pi_3...$；$P(Y|Z,\theta)$表示已经选中了模型和参数，生成Y的概率，对应$p(Y|\theta)=\prod_{n=1}^N\sum_{i=1}^{K}\pi_i p(x_n|\theta_i)$
+对应到GMM算法中，$P(Z|\theta)$表示某一个模型被选中的概率，对应$\pi_1,\pi_2,\pi_3...$；$P(Y|Z,\theta)$表示已经选中了模型和参数，生成Y的概率，对应$p(Y|\theta)=\prod_{n=1}^N\sum_{i=1}^{K}\pi_i p(x_n|\theta_i)$  
 
+  
 
-
-##### 3、如何直观理解EM算法中的E步和M步？ P185
+#### 3、如何直观理解EM算法中的E步和M步？ P185
 
 解答：
 
@@ -98,14 +98,14 @@ M根据当前分组更新参数
 
 新的思路：
 
-这犹如在x-y坐标系中找一个曲线的极值，然而曲线函数不能直接求导，因此什么梯度下降方法就不适用了。但固定一个变量后，另外一个可以通过求导得到，因此可以使用坐标上升法，一次固定一个变量，对另外的求极值，最后逐步逼近极值。对应到EM上，**E步：**固定 θ，优化Q；**M步：**固定 Q，优化 θ；交替将极值推向极大。
+这犹如在x-y坐标系中找一个曲线的极值，然而曲线函数不能直接求导，因此什么梯度下降方法就不适用了。但固定一个变量后，另外一个可以通过求导得到，因此可以使用坐标上升法，一次固定一个变量，对另外的求极值，最后逐步逼近极值。对应到EM上，**E步：**固定 θ，优化Q；**M步：**固定 Q，优化 θ；交替将极值推向极大。  
 
 *https://zhuanlan.zhihu.com/p/36331115*
-下图是似然函数关于模型参数θ和隐变量Z的等高线图
+下图是似然函数关于模型参数θ和隐变量Z的等高线图  
 
 ![EM算法-坐标上升](./imageforbook/EM算法-坐标上升.jpg)
 
-##### 4、解释算法的推导细节 P179
+#### 4、解释算法的推导细节 P179
 
 解答：
 
@@ -127,7 +127,7 @@ $$
 
 
 
-##### 5、EM算法的公式解释？ P178
+#### 5、EM算法的公式解释？ P178
 
 解答：
 
@@ -147,7 +147,7 @@ Z是依赖于Y和$\theta^{(i)}$的，所以分组情况分布写作$P(Z|Y,\theta
 
 
 
-##### 4、如何理解EM的收敛性？ P181
+#### 6、如何理解EM的收敛性？ P181
 
 解答：
 
@@ -160,10 +160,10 @@ EM是在最大化似然函数，只要保证每一步似然函数都在增大即
 解释公式
 $$
 \begin{align}
-\log P(Y|\theta)&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y|\theta) \quad &\text{前面概率和=1}\\
-&=\sum_Z P(Z|Y,\theta^{(i)}) \left(\log P(Y,Z|\theta)-\log P(Z|Y,\theta^{(i)}) \right)\quad &\text{log裂项}\\
-&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y,Z|\theta)-\sum_Z P(Z|Y,\theta^{(i)})\log P(Z|Y,\theta^{(i)}) \\
-&=Q(\theta,\theta^{(i)})-H(\theta,\theta^{(i)})
+	\log P(Y|\theta)&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y|\theta) \quad &\text{前面概率和=1}\\
+	&=\sum_Z P(Z|Y,\theta^{(i)}) \left(\log P(Y,Z|\theta)-\log P(Z|Y,\theta^{(i)}) \right)\quad &\text{log裂项}\\
+	&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y,Z|\theta)-\sum_Z P(Z|Y,\theta^{(i)})\log P(Z|Y,\theta^{(i)}) \\
+	&=Q(\theta,\theta^{(i)})-H(\theta,\theta^{(i)})
 \end{align}
 $$
 
