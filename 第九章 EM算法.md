@@ -50,7 +50,7 @@ $$
 	&=\log \left( \sum_ZP(Y|Z,\theta)P(Z|\theta) \right)&\text{#P(Y,Z)=P(Y|Z)P(Z)}\\
 \end{align}
 $$
-对应到GMM算法中，$P(Z|\theta)$表示某一个模型被选中的概率，对应$\pi_1,\pi_2,\pi_3...$；$P(Y|Z,\theta)$表示已经选中了模型和参数，生成Y的概率，对应$p(Y|\theta)=\prod_{n=1}^N\sum_{i=1}^{K}\pi_i p(x_n|\theta_i)$  
+对应到GMM算法中，P(Z|\$theta$)表示某一个模型被选中的概率，对应$\pi_1,\pi_2,\pi_3...$；$P(Y|Z,\theta)$表示已经选中了模型和参数，生成Y的概率，对应$p(Y|\theta)=\prod_{n=1}^N\sum_{i=1}^{K}\pi_i p(x_n|\theta_i)$  
 
   
 
@@ -160,11 +160,62 @@ EM是在最大化似然函数，只要保证每一步似然函数都在增大即
 解释公式
 $$
 \begin{align}
-	\log P(Y|\theta)&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y|\theta) \quad &\text{前面概率和=1}\\
-	&=\sum_Z P(Z|Y,\theta^{(i)}) \left(\log P(Y,Z|\theta)-\log P(Z|Y,\theta^{(i)}) \right)\quad &\text{log裂项}\\
+	\log P(Y|\theta)&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y|\theta) \quad &\text{前面概率和=1} \\
+	&=\sum_Z P(Z|Y,\theta^{(i)}) \left(\log P(Y,Z|\theta)-\log P(Z|Y,\theta^{(i)}) \right)\quad &\text{log裂项} \\
 	&=\sum_Z P(Z|Y,\theta^{(i)})\log P(Y,Z|\theta)-\sum_Z P(Z|Y,\theta^{(i)})\log P(Z|Y,\theta^{(i)}) \\
 	&=Q(\theta,\theta^{(i)})-H(\theta,\theta^{(i)})
 \end{align}
 $$
 
+#### 7、EM算法在GMM模型中的应用 P184
 
+解答：
+
+![EM算法-GMM更新图示](E:\KeepLearning\MathforCoder\imageforbook\EM算法-GMM更新图示.png)
+
+随机初始化，分组，更新权重，分组，更新权重，分组，更新权重。。。
+
+
+
+- 分组概率，每一个点j被第k个高斯分布产生的概率
+
+$$
+\hat{\gamma}_{jk}=\frac{\alpha_k\phi(y_j|\theta_k)}{\sum_{j=1}^K \alpha_k\phi(y_i|\theta_k)}
+
+$$
+
+- 模型参数
+
+  高斯均值μ
+
+$$
+\hat{\mu}_{k}=\frac{\sum_{j=1}^N\hat{\gamma}_{jk}y_j}{\sum_{j=1}^N\hat{\gamma}_{jk}}
+$$
+
+​		高斯方差
+$$
+\hat{\sigma}_{k}^2=\frac{\sum_{j=1}^N\hat{\gamma}_{jk}(y_j-\mu_k)^2}{\sum_{j=1}^N\hat{\gamma}_{jk}}
+$$
+​		高斯模型出现概率
+$$
+\hat{\mu}_{k}=\frac{\sum_{j=1}^N\hat{\gamma}_{jk}y_j}{\sum_{j=1}^N\hat{\gamma}_{jk}}
+$$
+
+
+#### 复习问题
+
+EM 算法的优化结果与初始值的选取无关？ 
+
+A：有关
+
+似然函数在 EM 算法下是（） 的？
+
+A：单调下降
+
+EM算法是总会收敛，且能收敛到全局最优解。
+
+A：错误。
+
+EM算法可以结合朴素贝叶斯的学习？
+
+A（zy）：朴素贝叶斯指的是数据中各个维度独立。对于特定维度可以分开求解
